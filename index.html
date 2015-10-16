@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        div#patterns {
+            display:block;
+            width: 110px;
+            float: left;
+        }
+        div#shirt {
+            float: right;
+            width: 100%;
+        }
+        div#patterns img {
+            margin:4px;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="patterns"></div>
+    <div id="shirt" >
+        
+    </div>
+    <script>
+        function applyPattern(event) {
+            var t = event.target || event.srcElement;
+            console.log(t.src);
+            go(t);
+        }
+
+        function addImages() {
+            var i = 1, img;
+            var ph = document.getElementById("patterns");
+            for (i = 1; i <= 13; i++) {
+                var img = new Image;
+                img.src = "pattern" + i + ".png";
+                img.addEventListener('click', applyPattern);
+                ph.appendChild(img);
+            }
+        }
+        window.onload = function () {
+            addImages();
+            go(img2);
+        };
+
+        var img1 = new Image, img2 = new Image;
+            
+
+        img1.src = "shirt-transparent.gif";
+        img1.src = "oie_transparent-1.png";
+        img1.src = "transparent-shirt.png";
+        img2.src = "pattern12.png";   // pattern
+
+        // MAIN CODE ---
+        function go(imgPattern) {
+            if (document.getElementById("canvasShirt")) {
+                document.getElementById("canvasShirt").remove();
+            }
+
+            var canvas = document.createElement('canvas');
+            canvas.id = 'canvasShirt';
+            canvas.height = window.outerHeight;
+            canvas.width = window.outerWidth - 150;
+            document.body.appendChild(canvas);
+
+          ctx = canvas.getContext("2d");
+          console.log(imgPattern);
+
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          // create a pattern  
+          ctx.fillStyle = ctx.createPattern(imgPattern, "repeat");
+  
+          // fill canvas with pattern
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+          // use blending mode multiply
+          ctx.globalCompositeOperation = "multiply";
+  
+          // draw sofa on top
+          ctx.drawImage(img1, 0, 0, img1.width, img1.height);
+  
+          // change composition mode (blending mode is automatically set to normal)
+          ctx.globalCompositeOperation = "destination-in";
+  
+          // draw to cut-out sofa
+          ctx.drawImage(img1, 0, 0, img1.width, img1.height);
+
+
+
+      }
+
+
+    </script>
+</body>
+</html>
