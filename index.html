@@ -29,7 +29,6 @@
     <script>
         function applyPattern(event) {
             var t = event.target || event.srcElement;
-            console.log(t.src);
             go(t);
         }
 
@@ -38,7 +37,7 @@
             var ph = document.getElementById("patterns");
             for (i = 1; i <= 13; i++) {
                 var img = new Image;
-                img.src = "pattern" + i + ".png";
+                img.src = "trimmed-patterns/pattern" + i + ".png";
                 img.addEventListener('click', applyPattern);
                 ph.appendChild(img);
             }
@@ -51,10 +50,9 @@
         var img1 = new Image, img2 = new Image;
             
 
-        img1.src = "shirt-transparent.gif";
         img1.src = "oie_transparent-1.png";
         img1.src = "transparent-shirt.png";
-        img2.src = "pattern12.png";   // pattern
+        img2.src = "trimmed-patterns/pattern12.png";   // pattern
 
         // MAIN CODE ---
         function go(imgPattern) {
